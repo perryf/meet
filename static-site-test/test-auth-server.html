@@ -38,16 +38,22 @@
       </label>
       <button id="getToken">Get Token</button>
       <p id="accessToken"></p>
+
+      <h4>Step 3: Get the calendar events using your access token</h4>
+      <button id="getEvents">Get Events</button>
+      <p id="events"></p>
     </main>
 
     <script type="text/javascript">
+      const ENDPOINT_ROOT =
+        'https://65kkaglqt4.execute-api.us-east-1.amazonaws.com/dev'
+
       // STEP 1
       const getURLElement = document.getElementById('getURL')
       const resultElement = document.getElementById('result')
       const resultLink = document.getElementById('authURL')
 
-      const getAuthURL =
-        'https://65kkaglqt4.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-url'
+      const getAuthURL = `${ENDPOINT_ROOT}/api/get-auth-url`
       getURLElement.onclick = () => {
         fetch(getAuthURL)
           .then(res => res.json())
@@ -62,14 +68,13 @@
           .catch(err => console.log(err))
       }
 
-      https://perryf.github.io/meet/?code=4/0AbUR2VMLMKw-OeBzfFIXC7sPPi6BSLdS0PXY-4a9RN26RG2f0H1gS63ZAzPnZDFx4k0mKQ&scope=https://www.googleapis.com/auth/calendar.readonly
-      
+      // https://perryf.github.io/meet/?code=4%2F0AbUR2VNu_oh6dX7m39C-J_jLyk5zL0kOS2jO9wkn-gL8DBe1uDLdZe4mTSUIIp6K3rMKFg&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly
+
       // STEP 2
       const codeValue = document.getElementById('code')
       const getAccessToken = document.getElementById('getToken')
       const accessTokenElement = document.getElementById('accessToken')
-      const getToken =
-        'https://65kkaglqt4.execute-api.us-east-1.amazonaws.com/dev/api/token'
+      const getToken = `${ENDPOINT_ROOT}/api/token`
 
       getAccessToken.onclick = () => {
         let code = codeValue.value
@@ -84,6 +89,23 @@
           .then(res => res.json())
           .then(json => {
             accessTokenElement.innerText = JSON.stringify(json)
+          })
+          .catch(err => console.log(err))
+      }
+
+      // STEP 3
+      const getEvents = document.getElementById('getEvents')
+      const events = document.getElementById('events')
+      const getCalendarEvents = `${ENDPOINT_ROOT}/api/get-events`
+
+      getEvents.onclick = () => {
+        const { access_token } = JSON.parse(accessTokenElement.innerText)
+        const eventRequest = getCalendarEvents + '/' + access_token
+
+        fetch(eventRequest)
+          .then(res => res.json())
+          .then(json => {
+            events.innerText = JSON.stringify(json, null, 2)
           })
           .catch(err => console.log(err))
       }
