@@ -60,12 +60,7 @@ export const getEvents = async () => {
 
 const getToken = async code => {
   const encodeCode = encodeURIComponent(code)
-  const { access_token } = await fetch(`${ENDPOINT_ROOT}/token/${encodeCode}`, {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true
-    }
-  })
+  const { access_token } = await fetch(`${ENDPOINT_ROOT}/token/${encodeCode}`)
     .then(res => {
       return res.json()
     })
