@@ -22,5 +22,3 @@ serviceWorkerRegistration.unregister()
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals()
-
-// ! UP TO: 4.5 Task: "So far, you’ve only implemented one part of the"

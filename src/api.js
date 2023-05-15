@@ -35,19 +35,21 @@ const removeQuery = () => {
 export const getEvents = async () => {
   NProgress.start()
 
-  if (window.location.href.startsWith('http://localhost')) {
-    NProgress.done()
-    return mockData
-  }
+  // if (window.location.href.startsWith('http://localhost')) {
+  //   NProgress.done()
+  //   return mockData
+  // }
 
   const token = await getAccessToken()
+
+  // console.log(token)
 
   if (token) {
     removeQuery()
     const url = ENDPOINT_ROOT + '/' + token
     const result = await axios.get(url)
     if (result.data) {
-      var locations = extractLocations(result.data.events)
+      const locations = extractLocations(result.data.events)
       localStorage.setItem('lastEvents', JSON.stringify(result.data))
       localStorage.setItem('locations', JSON.stringify(locations))
     }
@@ -58,7 +60,12 @@ export const getEvents = async () => {
 
 const getToken = async code => {
   const encodeCode = encodeURIComponent(code)
-  const { access_token } = await fetch(ENDPOINT_ROOT + '/' + encodeCode)
+  const { access_token } = await fetch(ENDPOINT_ROOT + '/' + encodeCode, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true
+    }
+  })
     .then(res => {
       return res.json()
     })
@@ -69,6 +76,7 @@ const getToken = async code => {
   return access_token
 }
 
+// check token is still valid
 const checkToken = async accessToken => {
   const result = await fetch(
     `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
@@ -88,11 +96,11 @@ export const getAccessToken = async () => {
     await localStorage.removeItem('access_token')
     const searchParams = new URLSearchParams(window.location.search)
     const code = await searchParams.get('code')
+
+    // get google single sign on url link and redirect
     if (!code) {
-      const url = `${ENDPOINT_ROOT}/api/get-auth-url`
-      const results = await axios.get(url)
-      const { authUrl } = results.data
-      return (window.location.href = authUrl)
+      const results = await axios.get(`${ENDPOINT_ROOT}/api/get-auth-url`)
+      return (window.location.href = results.data.authUrl)
     }
     return code && getToken(code)
   }
