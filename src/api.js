@@ -3,7 +3,7 @@ import NProgress from 'nprogress'
 import { mockData } from './mock-data'
 
 const ENDPOINT_ROOT =
-  'https://65kkaglqt4.execute-api.us-east-1.amazonaws.com/dev'
+  'https://65kkaglqt4.execute-api.us-east-1.amazonaws.com/dev/api'
 
 /**
  * @param {*} events:
@@ -46,7 +46,7 @@ export const getEvents = async () => {
 
   if (token) {
     removeQuery()
-    const url = ENDPOINT_ROOT + '/' + token
+    const url = `${ENDPOINT_ROOT}/get-events/${token}`
     const result = await axios.get(url)
     if (result.data) {
       const locations = extractLocations(result.data.events)
@@ -60,12 +60,15 @@ export const getEvents = async () => {
 
 const getToken = async code => {
   const encodeCode = encodeURIComponent(code)
-  const { access_token } = await fetch(ENDPOINT_ROOT + '/api/' + encodeCode, {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true
+  const { access_token } = await fetch(
+    `${ENDPOINT_ROOT}'/token/'${encodeCode}`,
+    {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true
+      }
     }
-  })
+  )
     .then(res => {
       return res.json()
     })
@@ -96,13 +99,13 @@ export const getAccessToken = async () => {
     await localStorage.removeItem('access_token')
     const searchParams = new URLSearchParams(window.location.search)
     const code = await searchParams.get('code')
-    
+
     // ? is this needed?
     await localStorage.setItem('code', JSON.stringify(code))
 
     // get google single sign on url link and redirect
     if (!code) {
-      const results = await axios.get(`${ENDPOINT_ROOT}/api/get-auth-url`)
+      const results = await axios.get(`${ENDPOINT_ROOT}/get-auth-url`)
       return (window.location.href = results.data.authUrl)
     }
     return code && getToken(code)

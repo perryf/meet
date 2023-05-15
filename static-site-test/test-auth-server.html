@@ -46,14 +46,14 @@
 
     <script type="text/javascript">
       const ENDPOINT_ROOT =
-        'https://65kkaglqt4.execute-api.us-east-1.amazonaws.com/dev'
+        'https://65kkaglqt4.execute-api.us-east-1.amazonaws.com/dev/api'
 
       // STEP 1
       const getURLElement = document.getElementById('getURL')
       const resultElement = document.getElementById('result')
       const resultLink = document.getElementById('authURL')
 
-      const getAuthURL = `${ENDPOINT_ROOT}/api/get-auth-url`
+      const getAuthURL = `${ENDPOINT_ROOT}/get-auth-url`
       getURLElement.onclick = () => {
         fetch(getAuthURL)
           .then(res => res.json())
@@ -74,7 +74,7 @@
       const codeValue = document.getElementById('code')
       const getAccessToken = document.getElementById('getToken')
       const accessTokenElement = document.getElementById('accessToken')
-      const getToken = `${ENDPOINT_ROOT}/api/token`
+      const getToken = `${ENDPOINT_ROOT}/token`
 
       getAccessToken.onclick = () => {
         let code = codeValue.value
@@ -96,7 +96,7 @@
       // STEP 3
       const getEvents = document.getElementById('getEvents')
       const events = document.getElementById('events')
-      const getCalendarEvents = `${ENDPOINT_ROOT}/api/get-events`
+      const getCalendarEvents = `${ENDPOINT_ROOT}/get-events`
 
       getEvents.onclick = () => {
         const { access_token } = JSON.parse(accessTokenElement.innerText)
