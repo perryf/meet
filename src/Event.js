@@ -8,11 +8,20 @@ class Event extends Component {
   }
 
   render() {
+    const { event } = this.props
     const { showDetails } = this.state
 
     return (
-      <div className="Event">
-        {showDetails && <div className="details-info"></div>}
+      <div className="event">
+        <h2>{event.summary}</h2>
+        <p>
+          {event.start.dateTime} ({event.start.timeZone})
+        </p>
+        <p>
+          @{event.summary} | {event.location}
+        </p>
+
+        {showDetails && <div className="details-info">{event.description}</div>}
 
         <button className="details-button" onClick={this.handleOnClick}>
           {showDetails ? 'Hide' : 'Show'} Details

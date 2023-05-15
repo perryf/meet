@@ -10,19 +10,19 @@ describe('<NumberOfEvents /> component', () => {
 
   test('textbox displays default number of events', () => {
     expect(
-      NumberOfEventsWrapper.find('.numberOfEventsInput').prop('value')
-    ).toBe(20)
+      NumberOfEventsWrapper.find('.numberOfEvents input').prop('value')
+    ).toBe(32)
   })
 
   test('update state when input changes', () => {
-    const eventObject = { target: { value: 50 } }
+    const eventObject = { target: { value: 16 } }
     const numberOfEventsInput = NumberOfEventsWrapper.find(
-      '.numberOfEventsInput'
+      '.numberOfEvents input'
     )
     numberOfEventsInput.simulate('change', eventObject)
 
     expect(
-      NumberOfEventsWrapper.find('.numberOfEventsInput').prop('value')
-    ).toBe(50)
+      NumberOfEventsWrapper.find('.numberOfEvents input').prop('value')
+    ).toBe(16)
   })
 })

@@ -6,11 +6,11 @@ import { mockData } from '../mock-data'
 describe('<Event /> component', () => {
   let EventWrapper
   beforeAll(() => {
-    EventWrapper = shallow(<Event />)
+    EventWrapper = shallow(<Event event={mockData[0]} />)
   })
 
   test('renders event correctly', () => {
-    expect(EventWrapper.find('.Event')).toHaveLength(1)
+    expect(EventWrapper.find('.event')).toHaveLength(1)
   })
 
   test('details button toggles event details on/off', () => {

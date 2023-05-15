@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
+import './nprogress.css'
 import App from './App'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import reportWebVitals from './reportWebVitals'
@@ -22,4 +23,4 @@ serviceWorkerRegistration.unregister()
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals()
 
-// ! UP TO: 4.3 Task: getCalendarEvents
+// ! UP TO: 4.5 Task: "So far, you’ve only implemented one part of the"
