@@ -60,7 +60,7 @@ export const getEvents = async () => {
 
 const getToken = async code => {
   const encodeCode = encodeURIComponent(code)
-  const { access_token } = await fetch(ENDPOINT_ROOT + '/' + encodeCode, {
+  const { access_token } = await fetch(ENDPOINT_ROOT + '/api/' + encodeCode, {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': true
@@ -96,6 +96,9 @@ export const getAccessToken = async () => {
     await localStorage.removeItem('access_token')
     const searchParams = new URLSearchParams(window.location.search)
     const code = await searchParams.get('code')
+    
+    // ? is this needed?
+    await localStorage.setItem('code', JSON.stringify(code))
 
     // get google single sign on url link and redirect
     if (!code) {
