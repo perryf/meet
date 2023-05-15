@@ -16,7 +16,8 @@ const credentials = {
   javascript_origins: [
     'https://perryf.github.io',
     'http://localhost:3000',
-    'http://127.0.0.1:8080'
+    'http://127.0.0.1:8080',
+    '*'
   ]
 }
 
@@ -47,7 +48,7 @@ module.exports.getAuthURL = async () => {
 // https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly&response_type=code&client_id=937690022891-fensfq0okqtb8tsfs0klpvahv13tm4c6.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fperryf.github.io%2Fmeet%2F
 
 module.exports.getAccessToken = async event => {
-  // needs to be instantiates every time
+  // needs to be instantiated every time
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
     client_secret,
