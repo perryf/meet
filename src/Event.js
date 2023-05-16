@@ -21,9 +21,11 @@ class Event extends Component {
           @{event.summary} | {event.location}
         </p>
 
-        {showDetails && <div className="details-info">{event.description}</div>}
+        {showDetails && (
+          <div className="event__Details">{event.description}</div>
+        )}
 
-        <button className="details-button" onClick={this.handleOnClick}>
+        <button className="details-btn" onClick={this.handleOnClick}>
           {showDetails ? 'Hide' : 'Show'} Details
         </button>
       </div>

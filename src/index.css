@@ -61,7 +61,7 @@ input[type='number'] {
   flex-direction: column;
   flex-basis: 300px;
   max-width: 300px;
-  margin: auto;
+  margin: 30px auto;
   position: relative;
 }
 

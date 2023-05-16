@@ -14,12 +14,12 @@ describe('<Event /> component', () => {
   })
 
   test('details button toggles event details on/off', () => {
-    const detailsButton = EventWrapper.find('.details-button')
+    const detailsButton = EventWrapper.find('.details-btn')
     expect(detailsButton.text()).toBe('Show Details')
 
     detailsButton.simulate('click')
-    expect(EventWrapper.find('.details-info')).toHaveLength(1)
+    expect(EventWrapper.find('.event__Details')).toHaveLength(1)
     // need to re-find button node for text to update
-    expect(EventWrapper.find('.details-button').text()).toBe('Hide Details')
+    expect(EventWrapper.find('.details-btn').text()).toBe('Hide Details')
   })
 })
