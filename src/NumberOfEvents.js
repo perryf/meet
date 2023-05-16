@@ -12,7 +12,7 @@ class NumberOfEvents extends Component {
     const invalidNumber = typeof value !== 'number' || value < 0 || value > 32
 
     this.setState({
-      numberOfEvents: value,
+      numberOfEvents: e.target.value,
       errorText: invalidNumber ? 'The number you entered is invalid' : ''
     })
   }
