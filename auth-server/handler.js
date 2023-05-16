@@ -21,6 +21,8 @@ const credentials = {
   ]
 }
 
+// TODO -> Remove the asterisk 
+
 const { client_secret, client_id, redirect_uris, calendar_id } = credentials
 
 module.exports.getAuthURL = async () => {
