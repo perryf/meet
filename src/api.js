@@ -35,13 +35,20 @@ const removeQuery = () => {
 export const getEvents = async () => {
   NProgress.start()
 
+  // if on localhost, display mock data
   if (window.location.href.startsWith('http://localhost')) {
     NProgress.done()
     return mockData
   }
 
-  const token = await getAccessToken()
+  // if offline, load cached events
+  if (!navigator.onLine) {
+    const data = localStorage.getItem('lastEvents')
+    NProgress.done()
+    return data ? JSON.parse(data).events : []
+  }
 
+  const token = await getAccessToken()
   if (token) {
     removeQuery()
     const url = `${ENDPOINT_ROOT}/get-events/${token}`
